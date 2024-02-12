@@ -75,12 +75,13 @@ python -m spacy download en_core_web_sm
 ```
 
 ## Module Detials
-- **Version:** `0.1.2`
+- **Version:** `0.1.0`
 - **Title:** `textPlay`
 - **License:** `Apache License Version 2.0`
-- **AUTHOR** = `Rakesh Kanna`
+- **AUTHOR:** `Rakesh Kanna`
 - **Author Email:** [rakeshkanna0108@gmail.com](mailto:rakeshkanna0108@gmail.com)
-- **GITHUB** = `https://github.com/rakeshkanna-rk`
+- **GITHUB LIBRARY:**  https://github.com/rakeshkanna-rk/textPlay
+- **GITHUB PROFILE:**  https://github.com/rakeshkanna-rk
 
 
 
