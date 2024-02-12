@@ -23,8 +23,8 @@ VERSION = "0.1.0"
 TITLE = "textPlay"
 LICENSE = "Apache License Version 2.0"
 AUTHOR = "Rakesh Kanna"
-GITHUB PROFILE = "https://github.com/rakeshkanna-rk"
-GITHUB LIBRARY = "https://github.com/rakeshkanna-rk/textPlay"
+GITHUB_PROFILE = "https://github.com/rakeshkanna-rk"
+GITHUB_LIBRARY = "https://github.com/rakeshkanna-rk/textPlay"
 
 __all__ = [
     "summarizer",
