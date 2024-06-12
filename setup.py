@@ -5,29 +5,35 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='textPlay',
-    version='0.1.0',
-    description='A package for text manipulation and more',
+    version='0.1.2',
+    description='A package for many unique text tools. to make your text beautiful.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/rakeshkanna-rk/textPlay',
-    author='Rakesh Kanna',
+    author='Rakesh Kanna S',
+    license="Apache License 2.0",
     author_email='rakeshkanna0108@gmail.com',
     packages=find_packages(),
+    keywords=['text tools', 'cli', 'terminal', 'google search', 'web search', 'morse code', 'decode', 'encode', 'box', 'colors', 'options', 'password generator', 'progress bar', 'encryption animation'],
     install_requires=[
-        "requests==2.26.0",
-        "gTTS==2.3.2",
-        "googletrans==4.0.0rc1",
-        "beautifulsoup4==4.10.0",
-        "qrcode==7.4.2",
-        "textblob==0.17.1",
-        "newspaper3k==0.2.8",
-        "pyspellchecker==0.7.2",
-        "spacy==3.6.1"
+        "click>=8.1.7",
+        "beautifulsoup4>=4.12.3",
+        "requests>=2.31.0",
+        "keyboard>=0.13.5",
     ],
+    project_urls={
+        'GitHub': 'https://github.com/rakeshkanna-rk/textPlay',
+        'Python Package Index': 'https://pypi.org/project/textPlay/',
+    },
     python_requires='>=3.6',
     entry_points={
         'console_scripts': [
-            'textplay = textPlay.main:main'
+            'textplay = textPlay.cli:textPlay_cli'
         ]
-    }
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+    ]
 )

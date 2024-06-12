@@ -1,20 +1,17 @@
 # __init__.py
 
-from .main import summarizer, link_summary, corrector, wordy, MorseCoderDecoder, \
-                    google_search, text_translator, analyze_sentiment, Spellify, \
-                    dictkey, dictvalue, BaseBot
+from .colors import *
+from .Gsearch import g_search
+from .morse import Morse
+from .options import options
+from .password_generator import create_password
+from .encrypt_animation import encrypted
+
 
 __all__ = [
-    "summarizer",
-    "link_summary",
-    "corrector",
-    "wordy",
-    "MorseCoderDecoder",
-    "google_search",
-    "text_translator",
-    "analyze_sentiment",
-    "Spellify",
-    "dictkey",
-    "dictvalue",
-    "BaseBot",
+    "g_search",
+    "Morse",
+    "options",
+    "create_password",
+    "encrypted",
 ]
