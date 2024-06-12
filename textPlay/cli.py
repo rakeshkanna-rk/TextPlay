@@ -41,6 +41,7 @@ def search(search, result):
     print(f"{pt}Searching for: {search}")
     print(f"{pt}Search results ↓\n{pt}{g_search(search, result)}")
 
+# TODO: CLI -> Error: Got unexpected extra argument (menu)
 
 # MORSE
 @click.command()

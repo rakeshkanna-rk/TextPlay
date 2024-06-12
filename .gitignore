@@ -53,6 +53,6 @@ env/
 .vscode/
 
 # Additional files and directories
-textPlay.egg-info/
+*.egg-info/
 dist/
 build/

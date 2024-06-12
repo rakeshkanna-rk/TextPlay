@@ -1,7 +1,4 @@
-requests==2.31.0
-gTTS==2.3.2
-googletrans==4.0.0rc1
-beautifulsoup4==4.12.2
-qrcode==7.4.2
-textblob==0.17.1
-
+click>=8.1.7
+beautifulsoup4>=4.12.3
+requests>=2.31.0
+keyboard>=0.13.5

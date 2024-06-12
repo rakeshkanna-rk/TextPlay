@@ -21,7 +21,7 @@ def progress_bar_report(progress, length, symbol, empty_symbol, color_on_complet
     color = color_on_completion if progress == 1 else ''
     print(f'|{color}{bar}{RESET}| {progress:.1%}', end='\r')
 
-def progress_bar(length=50, symbol='█', empty_symbol='-', color_on_completion=GREEN):
+def progress_bar_loader(length=50, symbol='█', empty_symbol='-', color_on_completion=GREEN):
     """
     Simulate and display a progress bar incrementing from 0% to 100%.
 

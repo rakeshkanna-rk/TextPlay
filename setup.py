@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='textPlay',
-    version='0.1.2',
+    version='0.1.3',
     description='A package for many unique text tools. to make your text beautiful.',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -28,7 +28,7 @@ setup(
     python_requires='>=3.6',
     entry_points={
         'console_scripts': [
-            'textplay = textPlay.cli:textPlay_cli'
+            'textplay = textPlay:textPlay_cli'
         ]
     },
     classifiers=[
