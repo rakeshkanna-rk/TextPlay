@@ -6,6 +6,18 @@ from textPlay.Gsearch import g_search
 from textPlay.morse import Morse
 
 pt = 'TP>> '
+breaker = '\n----------------'
+fle_opr = '''
+1. Create Folder
+2. Create File
+3. Delete Folder
+4. Delete File
+5. Rename Folder
+6. Move Folder
+7. List Folder
+8. Write File
+9. Read File
+'''
 
 # COLORS
 red = RED
@@ -27,11 +39,27 @@ def textPlay_cli():
 @click.command()
 def menu():
     options([(f'Web Search {RESET}', lambda: search()),
-             (f'Morse Code/Decode {RESET}', lambda: morse()),
+             (f'Morse Code/Decode {RESET}{breaker}', lambda: morse()),
+             (f'File Operations {RESET}', lambda: files()),
              (f'Text Play Tools {RESET}', lambda: tp_tools()),
              (f'Source Code {RESET}', lambda: source_code())],
              index=f"{magenta}>",
              head = "\n\tTextPlay CLI\n")
+
+# FILES
+def files():
+    print(f"{YELLOW}ON DEVELOPMENT{RESET}") # TODO: Develop all the file organizition
+    # print(fle_opr)
+    # loop = True
+    # while loop:
+        # opr = int(input(f"{BLUE}What type of opration you need to do: {RESET}"))
+        # if opr == 1:
+            # pass
+        
+
+def ask():
+    file = input(f"{BLUE}Enter a folder name or location: {RESET}")
+    return file
 
 # SEARCH
 @click.command()
@@ -56,7 +84,7 @@ def morse(input_text):
         click.echo(f"Decoded Text: {decoded_text}")
     else:
         encoded_text = morse_instance.coder(input_text)
-        click.echo(f"Encoded Morse Code: {encoded_text + " /"}")
+        click.echo(f"Encoded Morse Code: {encoded_text + ' /'}")
         
 def tp_tools():
     tools = f"""
@@ -105,3 +133,5 @@ def source_code():
 textPlay_cli.add_command(search)
 textPlay_cli.add_command(morse)
 textPlay_cli.add_command(menu)
+
+textPlay_cli()

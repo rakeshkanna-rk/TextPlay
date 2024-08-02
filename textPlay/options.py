@@ -1,4 +1,6 @@
 """
+# Main function to display a menu with options and handle user input for navigation and selection.
+
 Terminal Menu Program
 
 This program creates a simple terminal-based menu with options that can be navigated using the keyboard.

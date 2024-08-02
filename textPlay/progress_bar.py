@@ -1,3 +1,7 @@
+'''
+# 1. Simulate and display a progress bar incrementing from 0% to 100%.
+# 2. Display a progress bar with the given parameters.
+'''
 from textPlay.colors import GREEN, RESET
 import time
 

@@ -1,3 +1,6 @@
+'''
+# Converts text to morse and morse to text
+'''
 class Morse:
     """
     A class for encoding and decoding text to/from Morse code.

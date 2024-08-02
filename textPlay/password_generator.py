@@ -1,3 +1,6 @@
+'''
+Generate a random password with specified length.
+'''
 import random
 import string
 

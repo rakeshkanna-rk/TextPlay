@@ -119,6 +119,7 @@ from .encrypt_animation import encrypted
 from .box import create_box
 from .progress_bar import progress_bar_loader
 from .cli import textPlay_cli
+from .files import crt_dir, del_file, del_folder, rename_folder, move_folder, list_dir, write_file, read_file
 
 __all__ = [
     "g_search",
@@ -129,4 +130,7 @@ __all__ = [
     "create_box",
     "progress_bar_loader",
     "textPlay_cli",
+    "crt_dir", "del_file", "del_folder", 
+    "rename_folder", "move_folder", 
+    "list_dir", "write_file", "read_file"
 ]

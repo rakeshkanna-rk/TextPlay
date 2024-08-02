@@ -1,3 +1,7 @@
+'''
+# Make text colorfull on terminals
+'''
+
 # Text Colors
 BLACK = '\033[30m'
 RED = '\033[31m'

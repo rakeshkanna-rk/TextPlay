@@ -1,3 +1,7 @@
+'''
+# Create a box with a title and content to display in the terminal.
+'''
+
 import shutil
 
 def create_box(title, content, width_percentage):
