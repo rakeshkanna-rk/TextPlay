@@ -125,7 +125,7 @@ pip install textPlay
 ```
 
 ## Module Detials
-- **Version:** `0.1.3`
+- **Version:** `0.1.4b1`
 - **Title:** `textPlay`
 - **License:** `Apache License Version 2.0`
 - **AUTHOR:** `Rakesh Kanna S`

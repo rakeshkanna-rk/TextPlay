@@ -1,12 +1,22 @@
-import click
 import webbrowser
+import sys
+import pyfiglet
+import time
 from textPlay.colors import *
 from textPlay.options import options
 from textPlay.Gsearch import g_search
+from textPlay.password_generator import create_password
+from textPlay.encrypt_animation import encrypted
 from textPlay.morse import Morse
+from textPlay.files import *
 
-pt = 'TP>> '
+VERSION = '0.1.4'
+TITLE = f"{YELLOW}\n{pyfiglet.figlet_format("textPlay")}"
 breaker = '\n----------------'
+contact = f'''
+Github : {CYAN}https://github.com/rakeshkanna-rk{RESET}
+Mail : {CYAN}rakeshkanna0108@gmail.com{RESET}
+'''
 fle_opr = '''
 1. Create Folder
 2. Create File
@@ -17,6 +27,14 @@ fle_opr = '''
 7. List Folder
 8. Write File
 9. Read File
+'''
+help_cli = '''Usage: MonoCipher <option>
+
+Options:
+ -h, --help          show this help message and exit
+ -v, --version       show the version number and exit
+ -m, --menu          Open main menu
+ -c, --contact       Get author contact
 '''
 
 # COLORS
@@ -29,32 +47,107 @@ cyan = CYAN
 reset = RESET
 lit_red = LIGHT_RED
 
-
-@click.group()
 def textPlay_cli():
-    click.echo("\n\tTextPlay CLI\n")
-    pass
+    try:
+        if len(sys.argv) > 2:
+            print(f"{RED}Invalid Input Provided{RESET}")
+            print(help_cli)
+
+
+        elif sys.argv[1] == '--help' or sys.argv[1] == '-h':
+            print(TITLE)
+            print(help_cli)
+
+        elif sys.argv[1] == '--menu' or sys.argv[1] == '-m':
+            print(f"{GREEN} Openig Menu...{RESET}")
+            time.sleep(2)
+            menu()
+
+        elif sys.argv[1] == '--version' or sys.argv[1] == '-v':
+            print(f"{YELLOW}TextPlay {MAGENTA}{VERSION}{RESET}")
+
+        elif sys.argv[1] == '--contact' or sys.argv[1] == '-c':
+            print(contact)
+
+        else:
+            print(f"{RED}Invalid Input Provided{RESET}")
+            print(help_cli)
+            
+
+    except IndexError :
+        menu()
+
 
 # MENU
-@click.command()
 def menu():
     options([(f'Web Search {RESET}', lambda: search()),
-             (f'Morse Code/Decode {RESET}{breaker}', lambda: morse()),
+             (f'Morse Code/Decode {RESET}', lambda: morse()),
              (f'File Operations {RESET}', lambda: files()),
+             (f'Password Generator {RESET}', lambda: pws_gen()),
+             (f'Colors {RESET}{breaker}', lambda: colors_set()),
              (f'Text Play Tools {RESET}', lambda: tp_tools()),
-             (f'Source Code {RESET}', lambda: source_code())],
+             (f'Source Code {RESET}\n\n', lambda: source_code())],
              index=f"{magenta}>",
              head = "\n\tTextPlay CLI\n")
 
+
+def colors_set():
+    print(ALL_COLORS)
+
+# PASSWORD GENERATOR
+def pws_gen():
+    psw = create_password()
+    encrypted(psw, end_color=GREEN)
+
+
 # FILES
-def files():
-    print(f"{YELLOW}ON DEVELOPMENT{RESET}") # TODO: Develop all the file organizition
-    # print(fle_opr)
-    # loop = True
-    # while loop:
-        # opr = int(input(f"{BLUE}What type of opration you need to do: {RESET}"))
-        # if opr == 1:
-            # pass
+def files(): # TODO : ERROR HANDLING NEED TO BE DONE
+    print(fle_opr)
+    loop = True
+    while loop:
+        opr = int(input(f"{BLUE}What type of opration you need to do: {RESET}"))
+        if opr == 1:
+            file = ask()
+            crt_dir(file)
+            print(f"{GREEN}Folder created successfully!{RESET}")
+        elif opr == 2:
+            file = ask()
+            write_file(file)
+            print(f"{GREEN}File created successfully!{RESET}")
+        elif opr == 3:
+            file = ask()
+            del_folder(file)
+            print(f"{GREEN}Folder deleted successfully!{RESET}")
+        elif opr == 4:
+            file = ask()
+            del_file(file)
+            print(f"{GREEN}File deleted successfully!{RESET}")
+        elif opr == 5:
+            old = ask()
+            new = ask()
+            rename_folder(old, new)
+            print(f"{GREEN}Folder renamed successfully!{RESET}")
+        elif opr == 6:
+            old = ask()
+            new = ask()
+            move_folder(old, new)
+            print(f"{GREEN}Folder moved successfully!{RESET}")
+        elif opr == 7:
+            file = ask()
+            lst_dir = list_dir(file)
+            print(lst_dir)
+        elif opr == 8:
+            file = ask()
+            content = input(f"Enter content: ")
+            write_file(file, content, tell_me=False)
+            print(f"{GREEN}File written successfully!{RESET}")
+        elif opr == 9:
+            file = ask()
+            re_file = read_file(file)
+            print(re_file)
+        else:
+            loop = False
+
         
 
 def ask():
@@ -62,29 +155,43 @@ def ask():
     return file
 
 # SEARCH
-@click.command()
-@click.option('--search','-s', prompt=f'{pt}Search...', help="Search query")
-@click.option('--result','-r', prompt=f'{pt}Number of results', help="Number of results", default=1)
-def search(search, result):
-    print(f"{pt}Searching for: {search}")
-    print(f"{pt}Search results ↓\n{pt}{g_search(search, result)}")
-
-# TODO: CLI -> Error: Got unexpected extra argument (menu)
+def search():
+    srch = input(f"Search: ")
+    if srch == "":
+        print(f"Search can't be empty!{RESET}")
+        search()
+    else:
+        pass
+    
+    result = int(input(f"Number of results[1]: "))
+    if result == "":
+        print(f"Number of results can't be empty!{RESET}")
+        result = 1
+    else:
+        pass
+    
+    print(f"Searching for: {srch}")
+    print(f"Search results ↓\n{g_search(srch, result)}")
 
 # MORSE
-@click.command()
-@click.option('--input_text', '-i', prompt='Enter text/Morse code', help="Text or Morse code")
-def morse(input_text):
+def morse():
+    input_text = input("Enter text/Morse code: ")
+    if input_text == "":
+        print(f"{RED}Text can't be empty!{RESET}")
+        morse()
+    else:
+        pass
+
     print("Received input:", input_text)  # Debug statement to verify input
     
     morse_instance = Morse()
     
     if "/" in input_text:
         decoded_text = morse_instance.decoder(input_text)
-        click.echo(f"Decoded Text: {decoded_text}")
+        print(f"Decoded Text: {decoded_text}")
     else:
         encoded_text = morse_instance.coder(input_text)
-        click.echo(f"Encoded Morse Code: {encoded_text + ' /'}")
+        print(f"Encoded Morse Code: {encoded_text + ' /'}")
         
 def tp_tools():
     tools = f"""
@@ -128,10 +235,3 @@ def source_code():
     print(f"Source code at: {BRIGHT_BLUE}https://github.com/rakeshkanna-rk/textPlay{RESET}")
     webbrowser.open('https://github.com/rakeshkanna-rk/textPlay')
     print(f"Auto opening browser...{GREEN} ✔{RESET}")
-
-
-textPlay_cli.add_command(search)
-textPlay_cli.add_command(morse)
-textPlay_cli.add_command(menu)
-
-textPlay_cli()

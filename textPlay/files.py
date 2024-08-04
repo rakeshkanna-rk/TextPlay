@@ -24,7 +24,7 @@ def move_folder(old_fld, new_fld):
 def list_dir(dir):
     return os.listdir(dir)
 
-def write_file(file_name, content='', tell_me= False):
+def write_file(file_name, content='', tell_me= True):
     if content == '':
         with open(file_name, 'w') as fh:
             pass
@@ -37,7 +37,7 @@ def write_file(file_name, content='', tell_me= False):
 
 
 def read_file(file_name):
-    with open(file_name, 'w') as fh:
+    with open(file_name, 'r') as fh:
         read = fh.read()
         return read
             
