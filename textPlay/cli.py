@@ -48,6 +48,7 @@ reset = RESET
 lit_red = LIGHT_RED
 
 def textPlay_cli():
+    print(TITLE)
     try:
         if len(sys.argv) > 2:
             print(f"{RED}Invalid Input Provided{RESET}")
@@ -55,7 +56,6 @@ def textPlay_cli():
 
 
         elif sys.argv[1] == '--help' or sys.argv[1] == '-h':
-            print(TITLE)
             print(help_cli)
 
         elif sys.argv[1] == '--menu' or sys.argv[1] == '-m':
@@ -101,57 +101,70 @@ def pws_gen():
 
 
 # FILES
-def files(): # TODO : ERROR HANDLING NEED TO BE DONE
+def files():
     print(fle_opr)
-    loop = True
-    while loop:
-        opr = int(input(f"{BLUE}What type of opration you need to do: {RESET}"))
-        if opr == 1:
-            file = ask()
-            crt_dir(file)
-            print(f"{GREEN}Folder created successfully!{RESET}")
-        elif opr == 2:
-            file = ask()
-            write_file(file)
-            print(f"{GREEN}File created successfully!{RESET}")
-        elif opr == 3:
-            file = ask()
-            del_folder(file)
-            print(f"{GREEN}Folder deleted successfully!{RESET}")
-        elif opr == 4:
-            file = ask()
-            del_file(file)
-            print(f"{GREEN}File deleted successfully!{RESET}")
-        elif opr == 5:
-            old = ask()
-            new = ask()
-            rename_folder(old, new)
-            print(f"{GREEN}Folder renamed successfully!{RESET}")
-        elif opr == 6:
-            old = ask()
-            new = ask()
-            move_folder(old, new)
-            print(f"{GREEN}Folder moved successfully!{RESET}")
-        elif opr == 7:
-            file = ask()
-            lst_dir = list_dir(file)
-            print(lst_dir)
-        elif opr == 8:
-            file = ask()
-            content = input(f"Enter content: ")
-            write_file(file, content, tell_me=False)
-            print(f"{GREEN}File written successfully!{RESET}")
-        elif opr == 9:
-            file = ask()
-            re_file = read_file(file)
-            print(re_file)
-        else:
+    crt_loc = os.getcwd()
+    print(f"Current Location: {YELLOW}{crt_loc}{RESET}")
+    try:
+        loop = True
+        while loop:
+            opr = int(input(f"{BLUE}What type of opration you need to do: {RESET}"))
+            if opr == 1:
+                file = ask()
+                crt_dir(file)
+                print(f"{GREEN}Folder created successfully!{RESET}")
+            elif opr == 2:
+                file = ask()
+                write_file(file, tell_me=False)
+                print(f"{GREEN}File created successfully!{RESET}")
+            elif opr == 3:
+                file = ask()
+                del_folder(file)
+                print(f"{GREEN}Folder deleted successfully!{RESET}")
+            elif opr == 4:
+                file = ask()
+                del_file(file)
+                print(f"{GREEN}File deleted successfully!{RESET}")
+            elif opr == 5:
+                old = ask(f"{BLUE}Enter folder name to rename: {RESET}")
+                new = ask(f"{BLUE}Enter new folder name: {RESET}")
+                rename_folder(old, new)
+                print(f"{GREEN}Folder renamed successfully!{RESET}")
+            elif opr == 6:
+                old = ask(f"{BLUE}Enter folder name to move: {RESET}")
+                new = ask(f"{BLUE}Enter location where you want to move: {RESET}")
+                move_folder(old, new)
+                print(f"{GREEN}Folder moved successfully!{RESET}")
+            elif opr == 7:
+                file = ask()
+                lst_dir = list_dir(file)
+                print(lst_dir)
+            elif opr == 8:
+                file = ask()
+                content = input(f"Enter content: ")
+                write_file(file, content, tell_me=False)
+                print(f"{GREEN}File written successfully!{RESET}")
+            elif opr == 9:
+                file = ask()
+                re_file = read_file(file)
+                print(re_file)
+            else:
+                loop = False
             loop = False
 
+    except Exception:
+        print(f"{RED}Invalid Input Provided{RESET}")
+        files()
         
 
-def ask():
-    file = input(f"{BLUE}Enter a folder name or location: {RESET}")
+def ask(text=f"{BLUE}Enter a folder name or location: {RESET}"):
+    loop = True
+    while loop:
+        file = input(text)
+        if file == "":
+            print(f"{RED}Folder name can't be empty!{RESET}")
+        else:
+            loop = False
     return file
 
 # SEARCH
@@ -163,15 +176,14 @@ def search():
     else:
         pass
     
-    result = int(input(f"Number of results[1]: "))
+    result = input(f"Number of results[1]: ")
     if result == "":
-        print(f"Number of results can't be empty!{RESET}")
         result = 1
     else:
         pass
     
     print(f"Searching for: {srch}")
-    print(f"Search results ↓\n{g_search(srch, result)}")
+    print(f"Search results ↓\n{g_search(srch, int(result))}")
 
 # MORSE
 def morse():
@@ -223,6 +235,9 @@ def tp_tools():
 {BOLD}• Encryption Animation {RESET}
     This tool will display an encryption animation in the terminal with a specified word.
 
+{BOLD}• Files {RESET}
+    This tool will handle file creation, deletion, read, write and more.
+    
 {BOLD}• Source Code {RESET}
     View our source code at github. {BRIGHT_BLUE}https://github.com/rakeshkanna-rk/textPlay{RESET}
     Author: {MAGENTA}Rakesh Kanna S{reset}
