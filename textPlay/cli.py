@@ -1,6 +1,5 @@
 import webbrowser
 import sys
-import pyfiglet
 import time
 from textPlay.colors import *
 from textPlay.options import options
@@ -9,9 +8,10 @@ from textPlay.password_generator import create_password
 from textPlay.encrypt_animation import encrypted
 from textPlay.morse import Morse
 from textPlay.files import *
+from textPlay.backend import backend_exec
 
 VERSION = '0.1.4'
-TITLE = f"{YELLOW}\n{pyfiglet.figlet_format("textPlay")}"
+TITLE = f"{YELLOW}TextPlay {MAGENTA}v0.1.4{RESET}\n"
 breaker = '\n----------------'
 contact = f'''
 Github : {CYAN}https://github.com/rakeshkanna-rk{RESET}
@@ -28,7 +28,7 @@ fle_opr = '''
 8. Write File
 9. Read File
 '''
-help_cli = '''Usage: MonoCipher <option>
+help_cli = '''Usage: textPlay <option>
 
 Options:
  -h, --help          show this help message and exit
@@ -69,6 +69,11 @@ def textPlay_cli():
         elif sys.argv[1] == '--contact' or sys.argv[1] == '-c':
             print(contact)
 
+        elif sys.argv[1] == '--fof':
+            print(f"{GREEN}Opening File Opration Menu{RESET}")
+            time.sleep(2)
+            file_opration()
+
         else:
             print(f"{RED}Invalid Input Provided{RESET}")
             print(help_cli)
@@ -86,10 +91,14 @@ def menu():
              (f'Password Generator {RESET}', lambda: pws_gen()),
              (f'Colors {RESET}{breaker}', lambda: colors_set()),
              (f'Text Play Tools {RESET}', lambda: tp_tools()),
-             (f'Source Code {RESET}\n\n', lambda: source_code())],
+             (f'Source Code {RESET}', lambda: source_code()),
+             (f'Exit {RESET}\n', lambda: exiting())],
              index=f"{magenta}>",
-             head = "\n\tTextPlay CLI\n")
+             head = TITLE)
 
+def exiting():
+    print(f"{RED}Exiting...{RESET}")
+    sys.exit()
 
 def colors_set():
     print(ALL_COLORS)
@@ -101,60 +110,79 @@ def pws_gen():
 
 
 # FILES
-def files():
-    print(fle_opr)
-    crt_loc = os.getcwd()
-    print(f"Current Location: {YELLOW}{crt_loc}{RESET}")
-    try:
-        loop = True
-        while loop:
-            opr = int(input(f"{BLUE}What type of opration you need to do: {RESET}"))
-            if opr == 1:
-                file = ask()
-                crt_dir(file)
-                print(f"{GREEN}Folder created successfully!{RESET}")
-            elif opr == 2:
-                file = ask()
-                write_file(file, tell_me=False)
-                print(f"{GREEN}File created successfully!{RESET}")
-            elif opr == 3:
-                file = ask()
-                del_folder(file)
-                print(f"{GREEN}Folder deleted successfully!{RESET}")
-            elif opr == 4:
-                file = ask()
-                del_file(file)
-                print(f"{GREEN}File deleted successfully!{RESET}")
-            elif opr == 5:
-                old = ask(f"{BLUE}Enter folder name to rename: {RESET}")
-                new = ask(f"{BLUE}Enter new folder name: {RESET}")
-                rename_folder(old, new)
-                print(f"{GREEN}Folder renamed successfully!{RESET}")
-            elif opr == 6:
-                old = ask(f"{BLUE}Enter folder name to move: {RESET}")
-                new = ask(f"{BLUE}Enter location where you want to move: {RESET}")
-                move_folder(old, new)
-                print(f"{GREEN}Folder moved successfully!{RESET}")
-            elif opr == 7:
-                file = ask()
-                lst_dir = list_dir(file)
-                print(lst_dir)
-            elif opr == 8:
-                file = ask()
-                content = input(f"Enter content: ")
-                write_file(file, content, tell_me=False)
-                print(f"{GREEN}File written successfully!{RESET}")
-            elif opr == 9:
-                file = ask()
-                re_file = read_file(file)
-                print(re_file)
-            else:
-                loop = False
-            loop = False
 
-    except Exception:
-        print(f"{RED}Invalid Input Provided{RESET}")
-        files()
+def file_opration():
+    crt_loc = os.getcwd()
+    loc = f"{TITLE}\nCurrent Location: {YELLOW}{crt_loc}{RESET}"
+    options([(f'Create Folder {RESET}', lambda: fo_crt_dir()),
+             (f'Create File {RESET}', lambda: fo_crt_file()),
+             (f'Delete Folder {RESET}', lambda: fo_del_folder()),
+             (f'Delete File {RESET}', lambda: fo_del_file()),
+             (f'Rename Folder {RESET}', lambda: fo_rename_folder()),
+             (f'Move Folder {RESET}', lambda: fo_move_folder()),
+             (f'List Folder {RESET}', lambda: fo_list_folder()),
+             (f'Write File {RESET}', lambda: fo_write_file()),
+             (f'Read File {RESET}', lambda: fo_read_file())],
+             index=f"{magenta}>",
+             head=f"{BLUE}{loc}{RESET}")
+
+def fo_crt_dir():
+    file = ask()
+    crt_dir(file)
+    print(f"{GREEN}Folder created successfully!{RESET}")
+
+def fo_crt_file():
+    file = ask()
+    write_file(file, tell_me=False)
+    print(f"{GREEN}File created successfully!{RESET}")
+
+def fo_del_folder():
+    file = ask()
+    del_folder(file)
+    print(f"{GREEN}Folder deleted successfully!{RESET}")
+
+def fo_del_file():
+    file = ask()
+    del_file(file)
+    print(f"{GREEN}File deleted successfully!{RESET}")
+
+def fo_rename_folder():
+    old = ask(f"{BLUE}Enter folder name to rename: {RESET}")
+    new = ask(f"{BLUE}Enter new folder name: {RESET}")
+    rename_folder(old, new)
+    print(f"{GREEN}Folder renamed successfully!{RESET}")
+
+def fo_move_folder():
+    old = ask(f"{BLUE}Enter folder name to move: {RESET}")
+    new = ask(f"{BLUE}Enter new folder name: {RESET}")
+    if not os.path.exists(new):
+        move_folder(old, new)
+        print(f"{GREEN}Folder moved successfully!{RESET}")
+    else:
+        new = os.path.join(new, old)
+        move_folder(old, new)
+        print(f"{GREEN}Folder moved successfully!{RESET}")
+
+
+def fo_list_folder():
+    file = ask()
+    lst = list_dir(file)
+    for i in lst: 
+        print(i)
+
+def fo_write_file():
+    file = ask()
+    content = input(f"{BLUE}Enter file content: {RESET}")
+    write_file(file, content, tell_me=False)
+    print(f"{GREEN}File Written sucessfully{RESET}")
+
+def fo_read_file():
+    file = ask()
+    read = read_file(file)
+    print(read)
+
+def files():
+    backend_exec("textplay --fof")
         
 
 def ask(text=f"{BLUE}Enter a folder name or location: {RESET}"):
@@ -216,6 +244,12 @@ def tp_tools():
 {BOLD}• Morse Code/Decode {RESET}
     This tool will convert text to morse code and vice versa.
     It will automatically detect if the input is morse code or text.
+
+{BOLD}• Files {RESET}
+    This tool will create, delete, rename, move, list files and folders.
+
+{BOLD}• Backend {RESET}
+    This tool will help to run backend commands.
 
 {BOLD}• Box {RESET}
     This tool will print a box with a message and a title with specified length.
