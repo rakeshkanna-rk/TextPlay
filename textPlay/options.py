@@ -1,27 +1,9 @@
 """
 # Main function to display a menu with options and handle user input for navigation and selection.
 
-Terminal Menu Program
-
-This program creates a simple terminal-based menu with options that can be navigated using the keyboard.
-Users can move up and down the menu using the arrow keys and select an option by pressing Enter. The selected
-option triggers an associated function.
-
-Modules:
-    - keyboard: To read keyboard events.
-    - os: To clear the terminal screen.
-    - time: To add a delay to the input reading loop.
-
 Functions:
-    - print_options(selected_index, option, index, head): Clears the screen and prints the menu options, highlighting the selected option.
     - options(option, index, head): Displays a menu with options and handles user input for navigation and selection.
-
-Usage Example:
-    options(option=[('Option A', lambda: print("Option A selected")), 
-                    ('Option B', lambda: print("Option B selected")), 
-                    ('Option C', lambda: print("Option C selected")), 
-                    ('Option D', lambda: print("Option D selected"))],
-                    index=">", head="Select an option:")
+    - print_options(selected_index, option, index, head): Clears the screen and prints the menu options, highlighting the selected option.
 """
 
 import keyboard

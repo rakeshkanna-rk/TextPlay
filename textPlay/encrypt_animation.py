@@ -1,5 +1,8 @@
 '''
 # Simulate the encryption process by displaying random special characters before revealing the actual word.
+
+Functions:
+    - encrypted(word = "Encrypted 🔐", sleep_time=0.1, end_color=BLUE, special_characters="!@#$%^&*()_+-=[]{}|;:,.<>?/"): 
 '''
 
 import random

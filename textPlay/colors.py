@@ -1,5 +1,8 @@
 '''
 # Make text colorfull on terminals
+
+Functions:
+    - print(f"{RED}This is red text{RESET}") : Make text colorfull on terminals
 '''
 
 # Text Colors

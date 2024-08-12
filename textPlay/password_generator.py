@@ -1,5 +1,8 @@
 '''
 Generate a random password with specified length.
+
+Functions:
+     - create_password(length = 12): Generate a random password with specified length.
 '''
 import random
 import string

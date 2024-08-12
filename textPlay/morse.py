@@ -1,5 +1,12 @@
 '''
 # Converts text to morse and morse to text
+
+Class:
+    - Morse: A class for encoding and decoding text to/from Morse code
+
+Functions:
+    - coder(text): Encodes text to morse code
+    - decoder(morse_code): Decodes morse code to text
 '''
 class Morse:
     """

@@ -10,9 +10,10 @@ from textPlay.morse import Morse
 from textPlay.files import *
 from textPlay.backend import backend_exec
 
-VERSION = '0.1.4'
-TITLE = f"{YELLOW}TextPlay {MAGENTA}v0.1.4{RESET}\n"
-breaker = '\n----------------'
+VERSION = 'v0.1.4'
+TITLE = f"{YELLOW}TextPlay {GREEN}{VERSION}{RESET}\n"
+FOOTER = f"\n\nRakesh Kanna \n{BLUE}Happy Coding!{RESET}"
+breaker = f'\n{YELLOW}--------------------{RESET}'
 contact = f'''
 Github : {CYAN}https://github.com/rakeshkanna-rk{RESET}
 Mail : {CYAN}rakeshkanna0108@gmail.com{RESET}
@@ -48,7 +49,7 @@ reset = RESET
 lit_red = LIGHT_RED
 
 def textPlay_cli():
-    print(TITLE)
+    print(f"\t{TITLE}")
     try:
         if len(sys.argv) > 2:
             print(f"{RED}Invalid Input Provided{RESET}")
@@ -59,12 +60,12 @@ def textPlay_cli():
             print(help_cli)
 
         elif sys.argv[1] == '--menu' or sys.argv[1] == '-m':
-            print(f"{GREEN} Openig Menu...{RESET}")
+            print(f"{GREEN} Opening Menu...{RESET}")
             time.sleep(2)
             menu()
 
         elif sys.argv[1] == '--version' or sys.argv[1] == '-v':
-            print(f"{YELLOW}TextPlay {MAGENTA}{VERSION}{RESET}")
+            print()
 
         elif sys.argv[1] == '--contact' or sys.argv[1] == '-c':
             print(contact)
@@ -77,11 +78,13 @@ def textPlay_cli():
         else:
             print(f"{RED}Invalid Input Provided{RESET}")
             print(help_cli)
-            
 
     except IndexError :
+        print(f"{GREEN} Opening Menu...{RESET}")
+        time.sleep(2)
         menu()
 
+    print(FOOTER)
 
 # MENU
 def menu():
@@ -91,10 +94,10 @@ def menu():
              (f'Password Generator {RESET}', lambda: pws_gen()),
              (f'Colors {RESET}{breaker}', lambda: colors_set()),
              (f'Text Play Tools {RESET}', lambda: tp_tools()),
-             (f'Source Code {RESET}', lambda: source_code()),
-             (f'Exit {RESET}\n', lambda: exiting())],
+             (f'{CYAN}Source Code {RESET}', lambda: source_code()),
+             (f'{RED}Exit {RESET}\n', lambda: exiting())],
              index=f"{magenta}>",
-             head = TITLE)
+             head = f"\t{TITLE}")
 
 def exiting():
     print(f"{RED}Exiting...{RESET}")
@@ -105,7 +108,16 @@ def colors_set():
 
 # PASSWORD GENERATOR
 def pws_gen():
-    psw = create_password()
+    loop = True
+    while loop:
+        try:
+            len = input("Enter the length of the password [12]: ")
+            if len == "":
+                len = 12
+            loop = False
+        except ValueError:
+            print(f"{RED}Invalid Input Provided{RESET}")
+    psw = create_password(length=int(len))
     encrypted(psw, end_color=GREEN)
 
 
@@ -211,7 +223,7 @@ def search():
         pass
     
     print(f"Searching for: {srch}")
-    print(f"Search results ↓\n{g_search(srch, int(result))}")
+    print(f"{UNDERLINE}{BOLD}Search results{RESET}\n{g_search(srch, int(result))}")
 
 # MORSE
 def morse():
@@ -221,8 +233,6 @@ def morse():
         morse()
     else:
         pass
-
-    print("Received input:", input_text)  # Debug statement to verify input
     
     morse_instance = Morse()
     
@@ -235,7 +245,7 @@ def morse():
         
 def tp_tools():
     tools = f"""
-\t{LIGHT_YELLOW}Text Play Tools{RESET}
+\t{TITLE}
 
 {BOLD}• Web Search {RESET}
     This tool will search Google for a query and display the results.
@@ -282,5 +292,8 @@ def tp_tools():
 
 def source_code():
     print(f"Source code at: {BRIGHT_BLUE}https://github.com/rakeshkanna-rk/textPlay{RESET}")
-    webbrowser.open('https://github.com/rakeshkanna-rk/textPlay')
-    print(f"Auto opening browser...{GREEN} ✔{RESET}")
+    try:
+        webbrowser.open('https://github.com/rakeshkanna-rk/textPlay')
+        print(f"{GREEN}Auto opening browser...{RESET}")
+    except:
+        print(f"{RED}Auto opening browser failed...{RESET}")

@@ -1,5 +1,8 @@
 '''
 # Performs a google search with number of search results
+
+Functions:
+    - g_search(query, num_results=1): Performs a google search with number of search results
 '''
 import requests
 from bs4 import BeautifulSoup
