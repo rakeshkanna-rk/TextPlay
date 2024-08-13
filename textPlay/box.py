@@ -7,7 +7,7 @@ Functions:
 
 import shutil
 
-def create_box(title, content, width_percentage):
+def create_box(title: str, content: list, width_percentage: int):
     """
     Create a box with a title and content to display in the terminal.
 

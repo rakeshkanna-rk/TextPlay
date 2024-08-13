@@ -37,7 +37,7 @@ def print_options(selected_index, option, index, head):
         else:
             print(f"  {option_name}")
 
-def options(option: list, index=">", head=None, delay=0.2, exit_msg = f"{RED}Exiting...{RESET}", exit_key = "esc"):
+def options(option: list, index=">", head: str="", delay=0.2, exit_msg = f"{RED}Exiting...{RESET}", exit_key = "esc"):
     """
     Main function to display a menu with options and handle user input for navigation and selection.
 

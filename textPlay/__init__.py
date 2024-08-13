@@ -4,108 +4,84 @@
 **Welcome to the TextPlay repository! 👋**  
 This versatile Python module provides a range of text-related functions and tools to enhance your text experience in your terminal and projects.
 
-## Features
+## Functions
 
-- **Google Search 🔍:** This tool will search Google for a query and display the results. you can specify the number of results to display.
+1. **GOOGLE SEARCH**
+    - g_search(query, num_results=1): Performs a google search with number of search results
+    
+2. **MORSE CODE**
+    - Morse: A class for encoding and decoding text to/from Morse code
+    - coder(text): Encodes text to morse code
+    - decoder(morse_code): Decodes morse code to text
 
-```python
-from textPlay import google_search
+3. **OPTIONS**
+    - options(option, index, head): Displays a menu with options and handles user input for navigation and selection.
 
-search_query = "Python programming"
-top_results = google_search(search_query, num_results=3)
-print(top_results)
-```
-- **Morse Code Encoder/Decoder 📣:** This tool will encode and decode a message using the morse code. It will automatically detect if the input is morse code or text.
+4. **PASSWORD GENERATOR**
+    - create_password(length = 12): Generate a random password with specified length.
 
-```python
-from textPlay import morse
+5. **ENCRYPTION ANIMATION**
+    - encrypted(word = "Encrypted 🔐", sleep_time=0.1, end_color=BLUE, special_characters="!@#$%^&*()_+-=[]{}|;:,.<>?/"): Simulate the encryption process by displaying random special characters before revealing the actual word.
 
-morse = Morse()
+6. **BOX**
+    - create_box(title, content, width_percentage): Create a box with a title and content to display in the terminal.
 
-encoded_text = morse.coder("Hello, World!")
-print("Encoded Text:", encoded_text)
+7. **PROGRESS BAR**
+    - progress_bar_loader(length=50, symbol='█', empty_symbol='-', color_on_completion=GREEN): Simulate and display a progress bar incrementing from 0% to 100%.
 
-decoded_text = morse.decoder(encoded_text)
-print("Decoded Text:", decoded_text)
-```
+8. **FILES**
+    - crt_dir(folder_name: str, exist= True): create folder from current directory 
+    - crt_file(file_name): create file from current directory
+    - del_file(file_name): delete file from current directory
+    - del_folder(file_name): delete folder from current directory
+    - rename_folder(old_fld, new_fld): rename folder from current directory
+    - move_folder(old_fld, new_fld): move folder from current directory
+    - list_dir(dir): list folder from current directory
+    - write_file(file_name, content='', tell_me= True): write file from current directory
+    - read_file(file_name): read file from current directory
 
-- **Box 📦:** This tool will print a box with a message and a title with specified length.
+9. **BACKEND**
+    - backend_subprocess(command): Executes the given command in the background using the subprocess module.
+    - backend_suppress(command): Executes the given command in the background and suppresses its output.
+    - backend_exec(command): Executes the given command in the background and captures its output.
 
-```python
-from textPlay import box
-
-title = "Title"
-content = ["word 1", "word 2"]
-width_percentage = 99  # Adjust as needed
-box_with_title = create_box(title, content, width_percentage)
-print(box_with_title)
-```
-
-- **Colors**: This tool will print text in different colors and styles.
-
-```python
-from textPlay import colors
-
-print(f"{RED}This is red text{RESET}")
-print(f"{BG_GREEN}This has a green background{RESET}")
-print(f"{BOLD}This is bold text{RESET}")
-```
-
-- **Options**: This tool will display a menu with options and handle user input for navigation and selection. Main function to display a menu with options and handle user input for navigation and selection.
-
-```python
-from textPlay import options
-
-options(option=[('Option A', lambda: print("Option A selected")),
-                ('Option B', lambda: print("Option B selected")),
-                ('Option C', lambda: print("Option C selected")),
-                ('Option D', lambda: print("Option D selected"))],
-                index=">", 
-                head="Select an option:")
-```
-
-- **Password Generator**: This tool will generate a random password with the specified length.
-
-```python
-from textPlay import password_generator
-
-password = password_generator(length=12)
-print(password)
-```
-
-- **Encryption Animation**: Simulate the encryption process by displaying random special characters before revealing the actual word.
-
-```python
-from textPlay import encrypt_animation
-
-encrypted("Hello", sleep_time=0.1, end_color=BLUE)
-```
-
-- **Progress Bar Loader**: This tool will display a progress bar with a loading animation. Simulate and display a progress bar incrementing from 0% to 100%.  
-
-```python
-from textPlay import progress_bar_loader
-
-# Display a progress bar with custom parameters
-progress_bar(length=30, symbol='*', empty_symbol='-', color_on_completion=GREEN)
-```
-- **CLI**: A command line interface (CLI) for textPlay.
+10. **CLI**
+    
 ```bash
-textPlay menu
+textPlay --help
 ```
-To display the menu. of Text Play CLI
+or
+```bash
+textPlay -h
+```
+To display all the CLI options
 
 ```bash
-textPlay search --search "python" --num_results 3
+textPlay --version
 ```
-
-To search Google for a query with the specified number of results.
+or
+```bash
+textPlay -v
+```
+To display the version of textPlay.
 
 ```bash
-textPlay morse --input_text "Hello, World!"
+textPlay --menu
 ```
+or
+```bash
+textPlay -m
+```
+To display the menu of textPlay.
 
-To encode and decode morse code.
+```bash
+textPlay --contact
+```
+or
+```bash
+textPlay -c
+```
+To display the contact details of textPlay.
 """
 
 # __init__.py
@@ -120,6 +96,7 @@ from .box import create_box
 from .progress_bar import progress_bar_loader
 from .cli import textPlay_cli
 from .files import crt_dir, del_file, del_folder, rename_folder, move_folder, list_dir, write_file, read_file
+from .backend import backend_subprocess, backend_suppress, backend_exec
 
 __all__ = [
     "g_search",
@@ -132,5 +109,6 @@ __all__ = [
     "textPlay_cli",
     "crt_dir", "del_file", "del_folder", 
     "rename_folder", "move_folder", 
-    "list_dir", "write_file", "read_file"
+    "list_dir", "write_file", "read_file",
+    "backend_subprocess", "backend_suppress", "backend_exec"
 ]

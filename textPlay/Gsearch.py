@@ -10,12 +10,12 @@ from bs4 import BeautifulSoup
 
 def g_search(query, num_results=1):
     """
+    Returns:
+    str: A string containing the top search results.
+
     Parameters:
     - query (str): The search query to be used.
     - num_results (int, optional): The number of top results to retrieve (default is 1).
-
-    Returns:
-    str: A string containing the top search results.
 
     Note:
     This function performs a Google search using the provided query and retrieves

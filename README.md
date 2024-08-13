@@ -70,7 +70,10 @@ options(option=[('Option A', lambda: print("Option A selected")),
                 ('Option C', lambda: print("Option C selected")),
                 ('Option D', lambda: print("Option D selected"))],
                 index=">", 
-                head="Select an option:")
+                head="Select an option:",
+                delay=0.2,
+                exit_msg="Exiting...",
+                exit_key="esc")
 ```
 
 - **Password Generator**: This tool will generate a random password with the specified length.
@@ -87,7 +90,7 @@ print(password)
 ```python
 from textPlay import encrypt_animation
 
-encrypted("Hello", sleep_time=0.1, end_color=BLUE)
+encrypted("Hello", sleep_time=0.1, end_color=BLUE, special_characters="!@#$%^&*()_+-=[]{}|;:,.<>?/")
 ```
 
 - **Progress Bar Loader**: This tool will display a progress bar with a loading animation. Simulate and display a progress bar incrementing from 0% to 100%.  
@@ -96,25 +99,64 @@ encrypted("Hello", sleep_time=0.1, end_color=BLUE)
 from textPlay import progress_bar_loader
 
 # Display a progress bar with custom parameters
-progress_bar(length=30, symbol='*', empty_symbol='-', color_on_completion=GREEN)
+progress_bar_loader(length=30, symbol='*', empty_symbol='-', color_on_completion=GREEN)
 ```
+
+- **Files**: This tool will list, delete, rename, and move files and folders.
+
+```python
+from textPlay import files
+
+files = files.list_dir(USER)
+print(files)
+```
+
+- **Backend**: Executes the given command in the background using the subprocess module.
+
+```python
+from textPlay import backend
+
+list_dir = backend.backend_exec("ls")
+print(list_dir)
+```
+
 - **CLI**: A command line interface (CLI) for textPlay.
-```bash
-textPlay menu
-```
-To display the menu. of Text Play CLI
 
 ```bash
-textPlay search --search "python" --num_results 3
+textPlay --help
 ```
-
-To search Google for a query with the specified number of results.
+or
+```bash
+textPlay -h
+```
+To display all the CLI options
 
 ```bash
-textPlay morse --input_text "Hello, World!"
+textPlay --version
 ```
+or
+```bash
+textPlay -v
+```
+To display the version of textPlay.
 
-To encode and decode morse code.
+```bash
+textPlay --menu
+```
+or
+```bash
+textPlay -m
+```
+To display the menu of textPlay.
+
+```bash
+textPlay --contact
+```
+or
+```bash
+textPlay -c
+```
+To display the contact details of textPlay.
 
 ## Installation
 
@@ -125,7 +167,7 @@ pip install textPlay
 ```
 
 ## Module Detials
-- **Version:** `0.1.4b1`
+- **Version:** `0.1.4`
 - **Title:** `textPlay`
 - **License:** `Apache License Version 2.0`
 - **AUTHOR:** `Rakesh Kanna S`

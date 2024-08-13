@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='textPlay',
-    version='0.1.4b1',
+    version='0.1.4',
     description='A package for many unique text tools. to make your text beautiful.',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -14,9 +14,8 @@ setup(
     license="Apache License 2.0",
     author_email='rakeshkanna0108@gmail.com',
     packages=find_packages(),
-    keywords=['text tools', 'cli', 'terminal', 'google search', 'web search', 'morse code', 'decode', 'encode', 'box', 'colors', 'options', 'password generator', 'progress bar', 'encryption animation'],
+    keywords=['text tools', 'cli', 'terminal', 'google search', 'web search', 'morse code', 'decode', 'encode', 'box', 'colors', 'options', 'password generator', 'progress bar', 'encryption animation', 'files', 'backend', 'source code'],
     install_requires=[
-        "click>=8.1.7",
         "beautifulsoup4>=4.12.3",
         "requests>=2.31.0",
         "keyboard>=0.13.5",

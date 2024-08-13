@@ -8,7 +8,7 @@ from textPlay.password_generator import create_password
 from textPlay.encrypt_animation import encrypted
 from textPlay.morse import Morse
 from textPlay.files import *
-from textPlay.backend import backend_exec
+from textPlay.backend import backend_exec, backend_suppress, backend_subprocess
 
 VERSION = 'v0.1.4'
 TITLE = f"{YELLOW}TextPlay {GREEN}{VERSION}{RESET}\n"
@@ -36,6 +36,7 @@ Options:
  -v, --version       show the version number and exit
  -m, --menu          Open main menu
  -c, --contact       Get author contact
+ --update            Update textPlay
 '''
 
 # COLORS
@@ -65,7 +66,7 @@ def textPlay_cli():
             menu()
 
         elif sys.argv[1] == '--version' or sys.argv[1] == '-v':
-            print()
+            print("\r\r")
 
         elif sys.argv[1] == '--contact' or sys.argv[1] == '-c':
             print(contact)
@@ -74,6 +75,12 @@ def textPlay_cli():
             print(f"{GREEN}Opening File Opration Menu{RESET}")
             time.sleep(2)
             file_opration()
+
+        elif sys.argv[1] == '--update':
+            print(f"{GREEN}Updating textPlay...{RESET}")
+            time.sleep(2)
+            backend_suppress("pip install -U textPlay")
+            print(f"{GREEN}Update Successful{RESET}")
 
         else:
             print(f"{RED}Invalid Input Provided{RESET}")
