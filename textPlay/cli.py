@@ -12,8 +12,8 @@ from textPlay.backend import backend_exec, backend_suppress, backend_subprocess
 
 VERSION = 'v0.1.4'
 TITLE = f"{YELLOW}TextPlay {GREEN}{VERSION}{RESET}\n"
-FOOTER = f"\n\nRakesh Kanna \n{BLUE}Happy Coding!{RESET}"
-breaker = f'\n{YELLOW}--------------------{RESET}'
+FOOTER = f"\nRakesh Kanna \n{BLUE}Happy Coding!{RESET}"
+breaker = f'\n{YELLOW}────────────────────{RESET}'
 contact = f'''
 Github : {CYAN}https://github.com/rakeshkanna-rk{RESET}
 Mail : {CYAN}rakeshkanna0108@gmail.com{RESET}
@@ -50,7 +50,6 @@ reset = RESET
 lit_red = LIGHT_RED
 
 def textPlay_cli():
-    print(f"\t{TITLE}")
     try:
         if len(sys.argv) > 2:
             print(f"{RED}Invalid Input Provided{RESET}")
@@ -61,28 +60,36 @@ def textPlay_cli():
             print(help_cli)
 
         elif sys.argv[1] == '--menu' or sys.argv[1] == '-m':
+            print(f"\t{TITLE}")
             print(f"{GREEN} Opening Menu...{RESET}")
             time.sleep(2)
             menu()
+            print(FOOTER)
 
         elif sys.argv[1] == '--version' or sys.argv[1] == '-v':
-            print("\r\r")
+            print(f"{TITLE}")
 
         elif sys.argv[1] == '--contact' or sys.argv[1] == '-c':
+            print(f"\t{TITLE}")
             print(contact)
+            print(FOOTER)
 
         elif sys.argv[1] == '--fof':
             print(f"{GREEN}Opening File Opration Menu{RESET}")
             time.sleep(2)
             file_opration()
+            print(FOOTER)
 
-        elif sys.argv[1] == '--update':
+        elif sys.argv[1] == '--update' or sys.argv[1] == '-U':
+            print(f"\t{TITLE}")
             print(f"{GREEN}Updating textPlay...{RESET}")
             time.sleep(2)
             backend_suppress("pip install -U textPlay")
             print(f"{GREEN}Update Successful{RESET}")
+            print(FOOTER)
 
         else:
+            print(f"\t{TITLE}")
             print(f"{RED}Invalid Input Provided{RESET}")
             print(help_cli)
 
@@ -90,8 +97,9 @@ def textPlay_cli():
         print(f"{GREEN} Opening Menu...{RESET}")
         time.sleep(2)
         menu()
+        print(FOOTER)
 
-    print(FOOTER)
+    
 
 # MENU
 def menu():
@@ -108,6 +116,7 @@ def menu():
 
 def exiting():
     print(f"{RED}Exiting...{RESET}")
+    print(FOOTER)
     sys.exit()
 
 def colors_set():
