@@ -1,4 +1,4 @@
-<p align="center"><img src="./textplay_logo.png" alt="TextPlay Logo" width="200"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/rakeshkanna-rk/textPlay/main/textplay_logo.png" alt="TextPlay Logo" width="200"></p>
 
 <br>
 
