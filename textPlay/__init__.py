@@ -93,7 +93,7 @@ from .options import options
 from .password_generator import create_password
 from .encrypt_animation import encrypted
 from .box import create_box
-from .progress_bar import progress_bar_loader
+from .loader import progress_bar_loader
 from .cli import textPlay_cli
 from .files import crt_dir, del_file, del_folder, rename_folder, move_folder, list_dir, write_file, read_file
 from .backend import backend_subprocess, backend_suppress, backend_exec

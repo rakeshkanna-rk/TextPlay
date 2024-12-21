@@ -19,7 +19,7 @@ import textPlay
 
 ## Features
 
-- **Google Search 🔍:** This tool will search Google for a query and display the results. you can specify the number of results to display.
+### **🔍 Google Search:** This tool will search Google for a query and display the results. you can specify the number of results to display.
 
 ```python
 from textPlay import google_search
@@ -31,7 +31,7 @@ print(top_results)
 
 ---
 
-- **Morse Code Encoder/Decoder 📣:** This tool will encode and decode a message using the morse code. It will automatically detect if the input is morse code or text.
+### **📣 Morse Code Encoder/Decoder:** This tool will encode and decode a message using the morse code. It will automatically detect if the input is morse code or text.
 
 ```python
 from textPlay import morse
@@ -47,7 +47,7 @@ print("Decoded Text:", decoded_text)
 
 ---
 
-- **Box 📦:** This tool will print a box with a message and a title with specified length.
+### **📦 Box:** This tool will print a box with a message and a title with specified length.
 
 ```python
 from textPlay import box
@@ -61,7 +61,7 @@ print(box_with_title)
 
 ---
 
-- **Colors**: This tool will print text in different colors and styles.
+### **🎨 Colors**: This tool will print text in different colors and styles.
 
 ```python
 from textPlay import colors
@@ -73,7 +73,7 @@ print(f"{BOLD}This is bold text{RESET}")
 
 ---
 
-- **Options**: This tool will display a menu with options and handle user input for navigation and selection. Main function to display a menu with options and handle user input for navigation and selection.
+### **📚 Options**: This tool will display a menu with options and handle user input for navigation and selection. Main function to display a menu with options and handle user input for navigation and selection.
 
 ```python
 from textPlay import options
@@ -91,7 +91,7 @@ options(option=[('Option A', lambda: print("Option A selected")),
 
 ---
 
-- **Password Generator**: This tool will generate a random password with the specified length.
+### **🔑 Password Generator**: This tool will generate a random password with the specified length.
 
 ```python
 from textPlay import password_generator
@@ -102,7 +102,7 @@ print(password)
 
 ---
 
-- **Encryption Animation**: Simulate the encryption process by displaying random special characters before revealing the actual word.
+### **🔐 Encryption Animation**: Simulate the encryption process by displaying random special characters before revealing the actual word.
 
 ```python
 from textPlay import encrypt_animation
@@ -112,16 +112,34 @@ encrypted("Hello", sleep_time=0.1, end_color=BLUE, special_characters="!@#$%^&*(
 
 ---
 
-- **Progress Bar Loader**: This tool will display a progress bar with a loading animation. Simulate and display a progress bar incrementing from 0% to 100%.
-
+### **🔃 Loader**: This tool will display a progress bar with a loading animation.   
+ - **ProgressBar**: Simulate and display a progress bar incrementing from 0% to 100%.
 ```python
-from textPlay import progress_bar_loader
+from textPlay import ProgressBar
 
-# Display a progress bar with custom parameters
-progress_bar_loader(length=30, symbol='*', empty_symbol='-', color_on_completion=GREEN)
+if __name__ == "__main__":
+    progress_bar = ProgressBar()
+    try:
+        progress_bar.start()
+        time.sleep(3)  # Simulate a long-running task
+    finally:
+        progress_bar.stop()
 ```
 
-- **Files**: This tool will list, delete, rename, and move files and folders.
+ - **Spinner**: Simulate and display a spinner animation.
+```python
+from textPlay import Spinner
+
+if __name__ == "__main__":
+    spinner = Spinner()
+    try:
+        spinner.start()
+        time.sleep(3)  # Simulate a long-running task
+    finally:
+        spinner.stop()
+```
+
+### **📁 Files**: This tool will list, delete, rename, and move files and folders.
 
 ```python
 from textPlay import files
@@ -132,7 +150,7 @@ print(files)
 
 ---
 
-- **Backend**: Executes the given command in the background using the subprocess module.
+### **🛠️ Backend**: Executes the given command in the background using the subprocess module.
 
 ```python
 from textPlay import backend

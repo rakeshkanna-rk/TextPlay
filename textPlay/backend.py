@@ -32,9 +32,12 @@ def backend_subprocess(command):
     Hello, World!
     """
     try:
-        subprocess.run(command, shell=True, check=True)
+        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     except Exception as e:
         print(f"Error: {e}", flush=True)
+        result = None
+
+    return result
 
 def backend_suppress(command):
     """

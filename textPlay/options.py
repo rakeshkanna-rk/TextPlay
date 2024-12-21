@@ -1,102 +1,140 @@
 """
-# Main function to display a menu with options and handle user input for navigation and selection.
+# Options
+
+This module provides a function to display a menu with options and handle user input for navigation and selection.
 
 Functions:
-    - options(option, index, head): Displays a menu with options and handles user input for navigation and selection.
-    - print_options(selected_index, option, index, head): Clears the screen and prints the menu options, highlighting the selected option.
-"""
+    - options(options: list, index: str = ">", head: str = "", delay: float = 0.1, exit_msg: str = "Exiting...", exit_key: str = "esc")
 
-import keyboard
+Example:
+if __name__ == "__main__":
+    options(
+        options=[
+            ('Option A', lambda: print("Option A selected")),
+            ('Option B', lambda: print("Option B selected")),
+            ('Option C', lambda: print("Option C selected")),
+        ],
+        index=">",
+        head="Select an option:",
+        delay=0.1,
+        exit_msg="Goodbye!"
+    )
+    
+"""
 import os
 import time
+import sys
+from typing import Callable, List, Tuple
 
-from textPlay.colors import *
-
-def print_options(selected_index, option, index, head):
+def print_options(selected_index, options, index, head, helper):
     """
-    Function to print options with highlighting for the selected option.
+    Print options with highlighting for the selected option.
 
     Args:
-        selected_index (int): The index of the currently selected option.
-        option (list of tuples): A list of tuples where each tuple contains a string (option name) and a function.
-        index (str): A string that represents the indicator for the selected option.
-        head (str): A string that represents the heading to be displayed above the options.
-
-    Warnings:
-        - This function clears the screen before printing the options.
-        - This function uses the 'cls' command on Windows and 'clear' command on Linux/MacOS.
-        - This function uses the 'read_event' function from the 'keyboard' module to read keyboard events.
-        - TRY NOT TO USE THIS IN YOUR PROGRAMS. SUB PROGRAMS OF `options()` CAN BE USED.
+        selected_index (int): Index of the currently selected option.
+        options (list of tuples): List of options, each with a name and associated function.
+        index (str): Indicator for the selected option.
+        head (str): Heading displayed above the options.
     """
     os.system('cls' if os.name == 'nt' else 'clear')  # Clear the screen
     if head:
         print(head)
-    for i, (option_name, _) in enumerate(option):
+    if helper:
+        print("Use 'up' and 'down' to navigate, 'enter' to select, and 'esc' to exit.")
+    for i, (option_name, _) in enumerate(options):
         if i == selected_index:
-            print(f"{index} {option_name}")
+            print(f"{index} {option_name}")  # Highlight selected option
         else:
-            print(f"  {option_name}")
+            print(f"  {option_name}")  # Normal option
 
-def options(option: list, index=">", head: str="", delay=0.2, exit_msg = f"{RED}Exiting...{RESET}", exit_key = "esc"):
+
+def options(
+        options: List[Tuple[str, Callable]], 
+        index: str=">", 
+        head: str = "", 
+        delay: float=0.1, 
+        exit_msg: str="Exiting...", 
+        helper: bool = True,
+        ):
     """
-    Main function to display a menu with options and handle user input for navigation and selection.
+    Display a menu with options and handle user input for navigation and selection.
 
     Args:
-        option (list of tuples): A list of tuples where each tuple contains a string (option name) and a function.
-        index (str, optional): A string that represents the indicator for the selected option. Defaults to ">".
-        head (str, optional): A string that represents the heading to be displayed above the options. Defaults to None.
-        delay (float, optional): A float value that represents the delay in seconds between option selection. Defaults to 0.2.
-        exit_msg (str, optional): A string that represents the message to be displayed when the user exits the program. Defaults to "Exiting...".
-        exit_key (str, optional): A string that represents the key to exit the program. Defaults to "esc".
-
-    Warnings:
-        - This function uses the 'read_event' function from the 'keyboard' module to read keyboard events.
-        - As this tracks keyboard events, it can not be used until the option is selected.
+        - options (list of tuples): List of options, each with a name and associated function.
+        - index (str, optional): Indicator for the selected option. Default is '>'.
+        - head (str, optional): Heading displayed above the options. Default is an empty string.
+        - delay (float, optional): Delay in seconds between option navigation. Default is 0.1.
+        - exit_msg (str, optional): Message displayed when exiting. Default is "Exiting...".
+        - exit_key (str, optional): Key to exit the program. Default is 'esc'.
 
     Example:
-        options(option=[('Option A', lambda: print("Option A selected")),
-                        ('Option B', lambda: print("Option B selected")),
-                        ('Option C', lambda: print("Option C selected")),
-                        ('Option D', lambda: print("Option D selected"))],
-                        index=">", 
-                        head="Select an option:",
-                        delay=0.2,
-                        exit_msg = "Exiting...",
-                        exit_key = "esc")
-
-    The function displays a menu in the terminal, allowing the user to navigate the options using the 'up' and 'down' arrow keys.
-    The selected option is indicated by the 'index' string. When the user presses 'Enter', the function associated with the
-    selected option is executed.
+        options(options=[
+            ('Option A', lambda: print("Option A selected")),
+            ('Option B', lambda: print("Option B selected")),
+            ('Option C', lambda: print("Option C selected")),
+        ])
     """
+    if os.name == 'nt':  # Windows
+        import msvcrt
+
+        def get_key():
+            key = msvcrt.getch()
+            if key in (b'\x00', b'\xe0'):  # Arrow keys are preceded by null byte
+                key += msvcrt.getch()
+            return key
+
+        KEY_UP = b'\xe0H'
+        KEY_DOWN = b'\xe0P'
+        KEY_ENTER = b'\r'
+        KEY_ESC = b'\x1b'
+
+    else:  # Unix-like
+        import termios
+        import tty
+
+        def get_key():
+            fd = sys.stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            try:
+                tty.setraw(fd)
+                key = sys.stdin.read(1)
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            return key
+
+        KEY_UP = '\x1b[A'
+        KEY_DOWN = '\x1b[B'
+        KEY_ENTER = '\r'
+        KEY_ESC = '\x1b'
+
     selected_index = 0
-    initial_print = True  # Flag to control initial printing
+    while True:
+        print_options(selected_index, options, index, head, helper)
+        key = get_key()
 
-    try:
-        while True:
-            if initial_print:
-                print_options(selected_index, option, index, head)
-                initial_print = False
-            else:
-                key_pressed = keyboard.read_event(suppress=True).name
-
-                if key_pressed == "up":
-                    selected_index = (selected_index - 1) % len(option)
-                    print_options(selected_index, option, index, head)
-                    time.sleep(delay)  # Add a delay to slow down the movement
-                elif key_pressed == "down":
-                    selected_index = (selected_index + 1) % len(option)
-                    print_options(selected_index, option, index, head)
-                    time.sleep(delay)  # Add a delay to slow down the movement
-                elif key_pressed == "enter":
-                    option[selected_index][1]()  # Execute the function associated with the selected option
-                    break
-                elif key_pressed == exit_key:
-                    print(exit_msg)
-                    exit()
-
-    except KeyboardInterrupt:
-        loop = True
-        while loop:
-            print(f"{RED}KEYBOARD INTERRUPT. \nAborting...{RESET}")
-            loop = False
+        if key == KEY_ESC:  # ESC key
+            print(exit_msg)
             break
+        elif key == KEY_ENTER:  # Enter key
+            options[selected_index][1]()  # Execute associated function
+            break
+        elif key == KEY_UP:  # Up arrow
+            selected_index = (selected_index - 1) % len(options)
+            time.sleep(delay)
+        elif key == KEY_DOWN:  # Down arrow
+            selected_index = (selected_index + 1) % len(options)
+            time.sleep(delay)
+
+
+# if __name__ == "__main__":
+#     options(
+#         options=[
+#             ('Option A', lambda: print("Option A selected")),
+#             ('Option B', lambda: print("Option B selected")),
+#             ('Option C', lambda: print("Option C selected")),
+#         ],
+#         index=">",
+#         head="Select an option:",
+#         delay=0.1,
+#         exit_msg="Goodbye!"
+#     )

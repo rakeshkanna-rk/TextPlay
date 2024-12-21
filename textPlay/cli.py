@@ -9,9 +9,10 @@ from textPlay.encrypt_animation import encrypted
 from textPlay.morse import Morse
 from textPlay.files import *
 from textPlay.backend import backend_exec, backend_suppress, backend_subprocess
+from textPlay.meta import *
 
-VERSION = 'v0.1.4'
-TITLE = f"{YELLOW}TextPlay {GREEN}{VERSION}{RESET}\n"
+VERSION = version
+TITLE = f"{YELLOW}{tpCLI}{GREEN}{VERSION}{RESET}\n"
 FOOTER = f"\nRakesh Kanna \n{BLUE}Happy Coding!{RESET}"
 breaker = f'\n{YELLOW}────────────────────{RESET}'
 contact = f'''
@@ -33,7 +34,7 @@ help_cli = '''Usage: textPlay <option>
 
 Options:
  -h, --help          show this help message and exit
- -v, --version       show the version number and exit
+ -V, --version       show the version number and exit
  -m, --menu          Open main menu
  -c, --contact       Get author contact
  --update            Update textPlay
@@ -66,7 +67,7 @@ def textPlay_cli():
             menu()
             print(FOOTER)
 
-        elif sys.argv[1] == '--version' or sys.argv[1] == '-v':
+        elif sys.argv[1] == '--version' or sys.argv[1] == '-V':
             print(f"{TITLE}")
 
         elif sys.argv[1] == '--contact' or sys.argv[1] == '-c':
