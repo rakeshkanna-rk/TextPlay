@@ -1,55 +1,50 @@
-'''
-# Helps to run commands in backend
+"""
+# Backend module for executing commands in the background and handling errors.
 
 Functions:
-    - backend_subprocess(command): Executes the given command in the background using the subprocess module.
-    - backend_suppress(command): Executes the given command in the background and suppresses its output.
-    - backend_exec(command): Executes the given command in the background and captures its output.
-'''
+ - subProcess(command: str) -> Optional[subprocess.CompletedProcess]:
+ - suppress(command: str) -> None:
+ - osExecute(command: str) -> int:
+"""
 
 import os
 import subprocess
+from typing import Optional, Union
 
-def backend_subprocess(command):
+def subProcess(command: str) -> Optional[subprocess.CompletedProcess]:
     """
     Executes the given command in the background using the subprocess module.
 
     Parameters:
     - command (str): The command to be executed.
 
-    Notes:
-    - This function uses the subprocess.run() method to execute the given command.
-    - The command is executed in a separate process using the shell=True parameter.
-    - The check=True parameter is used to raise an exception if the command returns a non-zero exit status.
+    Returns:
+    - subprocess.CompletedProcess: If the command executes successfully.
+    - None: If an error occurs.
 
     Raises:
-    - Exception: If the command returns a non-zero exit status.
+    - subprocess.CalledProcessError: If the command returns a non-zero exit status.
 
     Example:
-    >>> backend_subprocess("echo 'Hello, World!'")
-
-    Output:
-    Hello, World!
+    >>> result = backend_subprocess("echo 'Hello, World!'")
+    >>> if result:
+    >>>     print(result.stdout)
     """
     try:
-        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    except Exception as e:
-        print(f"Error: {e}", flush=True)
-        result = None
+        result = subprocess.run(
+            command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+        )
+        return result
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing command: {e.stderr.strip()}", flush=True)
+        return None
 
-    return result
-
-def backend_suppress(command):
+def suppress(command: str) -> None:
     """
     Executes the given command in the background and suppresses its output.
 
     Parameters:
     - command (str): The command to be executed.
-
-    Notes:
-    - This function uses the subprocess.check_call() method to execute the given command.
-    - The command is executed in a separate process.
-    - The output of the command is suppressed by redirecting it to the null device (os.devnull).
 
     Example:
     >>> backend_suppress("echo 'Hello, World!'")
@@ -57,27 +52,30 @@ def backend_suppress(command):
     Output:
     (No output is displayed)
     """
-    with open(os.devnull, "w") as devnull:
-        command = command.split(" ")
-        subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT)
+    try:
+        with open(os.devnull, "w") as devnull:
+            subprocess.check_call(command, shell=True, stdout=devnull, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as e:
+        print(f"Error suppressing command: {e}", flush=True)
 
-
-def backend_exec(command):
+def osExecute(command: str) -> int:
     """
     Executes the given command in the background and waits for it to complete.
 
     Parameters:
     - command (str): The command to be executed.
 
-    Notes:
-    - This function uses the os.system() method to execute the given command.
-    - The command is executed in a separate process and waits for it to complete before continuing.
-    - The output of the command is displayed in the terminal.
+    Returns:
+    - int: The exit code of the executed command.
 
     Example:
-    >>> backend_exec("echo 'Hello, World!'")
-
-    Output:
-    Hello, World!
+    >>> exit_code = backend_exec("echo 'Hello, World!'")
+    >>> print(f"Command exited with code: {exit_code}")
     """
-    os.system(command)
+    try:
+        return os.system(command)
+    except Exception as e:
+        print(f"Error executing command: {e}", flush=True)
+        return 1
+
+

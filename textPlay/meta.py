@@ -1,3 +1,3 @@
 name = "textPlay"
 version = "0.1.4"
-tpCLI = "TextPlay CLI Beta"
+CLI = "TextPlay CLI Beta"

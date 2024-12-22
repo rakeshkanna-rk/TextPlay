@@ -8,11 +8,11 @@ from textPlay.password_generator import create_password
 from textPlay.encrypt_animation import encrypted
 from textPlay.morse import Morse
 from textPlay.files import *
-from textPlay.backend import backend_exec, backend_suppress, backend_subprocess
+from textPlay.backend import osExecute, suppress, subProcess
 from textPlay.meta import *
 
 VERSION = version
-TITLE = f"{YELLOW}{tpCLI}{GREEN}{VERSION}{RESET}\n"
+TITLE = f"{YELLOW}{CLI}{GREEN}{VERSION}{RESET}\n"
 FOOTER = f"\nRakesh Kanna \n{BLUE}Happy Coding!{RESET}"
 breaker = f'\n{YELLOW}────────────────────{RESET}'
 contact = f'''
@@ -85,7 +85,7 @@ def textPlay_cli():
             print(f"\t{TITLE}")
             print(f"{GREEN}Updating textPlay...{RESET}")
             time.sleep(2)
-            backend_suppress("pip install -U textPlay")
+            suppress("pip install -U textPlay")
             print(f"{GREEN}Update Successful{RESET}")
             print(FOOTER)
 
@@ -211,7 +211,7 @@ def fo_read_file():
     print(read)
 
 def files():
-    backend_exec("textplay --fof")
+    osExecute("textplay --fof")
         
 
 def ask(text=f"{BLUE}Enter a folder name or location: {RESET}"):

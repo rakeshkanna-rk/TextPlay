@@ -113,7 +113,7 @@ encrypted("Hello", sleep_time=0.1, end_color=BLUE, special_characters="!@#$%^&*(
 ---
 
 ### **🔃 Loader**: This tool will display a progress bar with a loading animation.   
- - **ProgressBar**: Simulate and display a progress bar incrementing from 0% to 100%.
+ - **Progress Bar**: Simulate and display a progress bar incrementing from 0% to 100%.
 ```python
 from textPlay import ProgressBar
 
@@ -137,6 +137,39 @@ if __name__ == "__main__":
         time.sleep(3)  # Simulate a long-running task
     finally:
         spinner.stop()
+```
+
+ - **Module Compiler**: Simulate and display a module compiling animation with active functioning. 
+```python
+from textPlay import progressCompile
+
+def func1(param1):
+    time.sleep(1)  # Simulate processing
+    print(f"\nProcessed with param1: {param1}")
+
+def func2(param1, param2):
+    time.sleep(2)  # Simulate processing
+    print(f"\nProcessed with param1: {param1}, param2: {param2}")
+
+def func3():
+    time.sleep(1.5)  # Simulate processing
+    print("\nProcessed with no params")
+
+
+# Example usage with arguments
+progressCompile(
+    "Processing",
+    ["Module A", "Module B", "Module C"],
+    [func1, func2, func3],
+    [(42,), ("Hello", "World"), ()]
+)
+
+# Example usage without arguments
+progressCompile(
+    "Processing",
+    ["Module D", "Module E", "Module F"],
+    [func3, func3, func3]
+)
 ```
 
 ### **📁 Files**: This tool will list, delete, rename, and move files and folders.
