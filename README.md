@@ -78,15 +78,14 @@ print(f"{BOLD}This is bold text{RESET}")
 ```python
 from textPlay import options
 
-options(option=[('Option A', lambda: print("Option A selected")),
+options(options=[('Option A', lambda: print("Option A selected")),
                 ('Option B', lambda: print("Option B selected")),
                 ('Option C', lambda: print("Option C selected")),
                 ('Option D', lambda: print("Option D selected"))],
                 index=">",
                 head="Select an option:",
                 delay=0.2,
-                exit_msg="Exiting...",
-                exit_key="esc")
+                exit_msg="Exiting...")
 ```
 
 ---
@@ -112,8 +111,10 @@ encrypted("Hello", sleep_time=0.1, end_color=BLUE, special_characters="!@#$%^&*(
 
 ---
 
-### **🔃 Loader**: This tool will display a progress bar with a loading animation.   
- - **Progress Bar**: Simulate and display a progress bar incrementing from 0% to 100%.
+### **🔃 Loader**: This tool will display a progress bar with a loading animation.
+
+- **Progress Bar**: Simulate and display a progress bar incrementing from 0% to 100%.
+
 ```python
 from textPlay import ProgressBar
 
@@ -126,7 +127,8 @@ if __name__ == "__main__":
         progress_bar.stop()
 ```
 
- - **Spinner**: Simulate and display a spinner animation.
+- **Spinner**: Simulate and display a spinner animation.
+
 ```python
 from textPlay import Spinner
 
@@ -139,7 +141,8 @@ if __name__ == "__main__":
         spinner.stop()
 ```
 
- - **Module Compiler**: Simulate and display a module compiling animation with active functioning. 
+- **Module Compiler**: Simulate and display a module compiling animation with active functioning.
+
 ```python
 from textPlay import progressCompile
 
@@ -193,6 +196,7 @@ print(list_dir)
 ```
 
 ---
+
 ---
 
 - **CLI**: A command line interface (CLI) for textPlay.

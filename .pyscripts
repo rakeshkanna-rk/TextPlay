@@ -1,0 +1,12 @@
+# Line Of Configuration (LOC) file = .pyscripts [Mon Dec 23 22:15:40 2024]
+
+# Line Of Configuration (LOC) file = .pyscripts [Fri Dec 20 00:48:48 2024]
+
+[py.reset]
+convert = python setup.py sdist bdist_wheel
+uninstall = pip uninstall textPlay -y
+install = pip install dist/textPlay-0.1.4b2-py3-none-any.whl
+
+[py.upload]
+convert = python setup.py sdist bdist_wheel
+upload = pipc upload

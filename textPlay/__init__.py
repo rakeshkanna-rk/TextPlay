@@ -197,6 +197,7 @@ from .cli import textPlay_cli
 from .files import crt_dir, del_file, del_folder, rename_folder, move_folder, list_dir, write_file, read_file
 from .backend import subProcess, suppress, osExecute
 from .logmsg import Status, Logger, log
+from .scraper import jsonScraper
 
 __all__ = [
     "g_search",
@@ -211,5 +212,6 @@ __all__ = [
     "rename_folder", "move_folder", 
     "list_dir", "write_file", "read_file",
     "subProcess", "suppress", "osExecute",
-    "Status", "Logger", "log"
+    "Status", "Logger", "log",
+    "jsonScraper"
 ]
